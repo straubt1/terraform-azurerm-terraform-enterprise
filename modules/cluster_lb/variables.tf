@@ -1,32 +1,32 @@
 # ============================================================ REQUIRED
 
 variable "install_id" {
-  type        = "string"
+  type        = string
   description = "A prefix to use for resource names"
 }
 
 variable "location" {
-  type        = "string"
+  type        = string
   description = "The Azure Location to build into"
 }
 
 variable "rg_name" {
-  type        = "string"
+  type        = string
   description = "The Azure Resource Group to build into"
 }
 
 variable "dns" {
-  type        = "map"
+  type        = map(string)
   description = "Expects keys: [domain, rg_name, ttl]"
 }
 
 variable "lb_port" {
-  type        = "map"
+  type        = map(string)
   description = "Expects map with format `name: [frontend_port, protocol, backend_port]` for all routes."
 }
 
 variable "resource_prefix" {
-  type        = "string"
+  type        = string
   description = "Prefix name for resources"
 }
 
@@ -49,3 +49,4 @@ locals {
   prefix   = "${var.resource_prefix}-${var.install_id}"
   frontend = "${local.prefix}-fe"
 }
+
