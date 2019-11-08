@@ -37,12 +37,38 @@ module "cluster_lb" {
     ttl     = var.dns_ttl
   }
 
-  lb_port = {
-    cluster_api = ["6443", "Tcp", "6443"]
-    assist      = [local.assistant_port, "Tcp", local.assistant_port]
-    app         = ["443", "Tcp", "443"]
-    console     = ["8800", "Tcp", "8800"]
-  }
+  # lb_port = {
+  #   cluster_api = ["6443", "Tcp", "6443"]
+  #   assist      = [local.assistant_port, "Tcp", local.assistant_port]
+  #   app         = ["443", "Tcp", "443"]
+  #   console     = ["8800", "Tcp", "8800"]
+  # }
+  lb_port = [
+    {
+      name          = "cluster_api"
+      frontend_port = "6443"
+      protocol      = "Tcp"
+      backend_port  = "6443"
+    },
+    {
+      name          = "assist"
+      frontend_port = local.assistant_port
+      protocol      = "Tcp"
+      backend_port  = local.assistant_port
+    },
+    {
+      name          = "app"
+      frontend_port = "443"
+      protocol      = "Tcp"
+      backend_port  = "443"
+    },
+    {
+      name          = "console"
+      frontend_port = "8800"
+      protocol      = "Tcp"
+      backend_port  = "8800"
+    }
+  ]
 }
 
 # We are hardcoding the primary count to 3 for the initial release for stability.
@@ -104,7 +130,7 @@ module "primaries" {
   os_disk_size            = var.os_disk_size
   cluster_backend_pool_id = module.cluster_lb.backend_pool_id
   storage_image           = var.storage_image
-  cloud_init_data_list    = [module.configs.primary_cloud_init_list]
+  cloud_init_data_list    = module.configs.primary_cloud_init_list
 
   key_vault = {
     id       = module.common.vault_id

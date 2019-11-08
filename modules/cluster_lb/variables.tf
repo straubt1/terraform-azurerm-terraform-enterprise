@@ -21,8 +21,14 @@ variable "dns" {
 }
 
 variable "lb_port" {
-  type        = map(string)
+  # type        = map(string)
   description = "Expects map with format `name: [frontend_port, protocol, backend_port]` for all routes."
+  type = list(object({
+    name          = string
+    frontend_port = string
+    protocol      = string
+    backend_port  = string
+  }))
 }
 
 variable "resource_prefix" {

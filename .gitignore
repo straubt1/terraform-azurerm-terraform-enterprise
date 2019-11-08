@@ -1,2 +1,4 @@
 work/
 .terraform/
+keys/
+*.tfvars*

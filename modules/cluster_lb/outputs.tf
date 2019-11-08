@@ -14,12 +14,14 @@ output "public_ip_id" {
 }
 
 output "lb_endpoint_dns" {
-  value       = "${azurerm_dns_a_record.api.name}.${azurerm_dns_a_record.api.zone_name}"
+  # value       = "${azurerm_dns_a_record.api.name}.${azurerm_dns_a_record.api.zone_name}"
+  value       = "${local.prefix}-api.${var.dns["domain"]}"
   description = "The api dns endpoint for this loadbalancer"
 }
 
 output "app_endpoint_dns" {
-  value       = "${azurerm_dns_a_record.application.name}.${azurerm_dns_a_record.application.zone_name}"
+  # value       = "${azurerm_dns_a_record.application.name}.${azurerm_dns_a_record.application.zone_name}"
+  value       = "${local.prefix}.${var.dns["domain"]}"
   description = "The dns endpoint for this loadbalancer"
 }
 
