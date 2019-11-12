@@ -2,6 +2,13 @@
 
 set -e -u -o pipefail
 
+
+# Setup logging
+logfile="/etc/ptfe/install-ptfe.log"
+exec > $logfile 2>&1
+
+sudo apt install -y ipset
+
 ### Set proxy variables, if needed.
 if [ -s /etc/ptfe/proxy-url ]; then
   http_proxy=$(cat /etc/ptfe/proxy-url)

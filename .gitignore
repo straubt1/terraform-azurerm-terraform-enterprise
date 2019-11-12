@@ -2,3 +2,4 @@ work/
 .terraform/
 keys/
 *.tfvars*
+*tfstate*
