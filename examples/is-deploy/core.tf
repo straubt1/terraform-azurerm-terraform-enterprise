@@ -7,8 +7,8 @@ resource "tls_private_key" "main" {
 }
 
 resource "local_file" "bastion-pem" {
-  filename = "./keys/bastion_rsa.pem"
-  content  = tls_private_key.main.private_key_pem
+  filename        = "./keys/bastion_rsa.pem"
+  content         = tls_private_key.main.private_key_pem
   file_permission = "600"
 }
 

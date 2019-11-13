@@ -7,12 +7,21 @@ module "tfe_cluster" {
   subnet                       = module.core.networking.subnets[0].name
   key_vault_name               = module.core.keyvault.name
   domain                       = local.hostname
-  tls_pfx_certificate          = "./keys/acme.pfx"
+  tls_pfx_certificate          = "./keys/certificate.pfx"
   tls_pfx_certificate_password = ""
 
   primary_vm_size   = "Standard_D2s_v3"
   secondary_vm_size = "Standard_D2s_v3"
   secondary_count   = 2
+
+  # postgresql_address      = "${azurerm_postgresql_server.main.fqdn}:5432"
+  # postgresql_database     = azurerm_postgresql_database.main.name
+  # postgresql_extra_params = "sslmode=require"
+  # postgresql_user         = "${azurerm_postgresql_server.main.administrator_login}@${azurerm_postgresql_server.main.name}"
+  # postgresql_password     = azurerm_postgresql_server.main.administrator_login_password
+  # azure_es_account_key    = azurerm_storage_account.main.primary_access_key
+  # azure_es_account_name   = azurerm_storage_account.main.name
+  # azure_es_container      = azurerm_storage_container.main.name
 }
 
 

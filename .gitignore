@@ -3,3 +3,4 @@ work/
 keys/
 *.tfvars*
 *tfstate*
+*.DS_Store*

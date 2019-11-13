@@ -2,6 +2,10 @@ output "resource_group_name" {
   value = azurerm_resource_group.networking.name
 }
 
+output "location" {
+  value = azurerm_resource_group.networking.location
+}
+
 output "networking" {
   value = {
     vnet_id   = azurerm_virtual_network.networking.id

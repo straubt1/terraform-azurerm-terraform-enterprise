@@ -2,6 +2,8 @@
 
 set -e -u -o pipefail
 
+# Set intial start time - used to calculate total time
+SECONDS=0
 
 # Setup logging
 logfile="/etc/ptfe/install-ptfe.log"
@@ -112,6 +114,10 @@ if [ "x${role}x" == "xmainx" ]; then
     if [ -s /etc/ptfe/proxy-url ]; then
         ptfe_install_args+=(
             "--additional-no-proxy=$no_proxy"
+        )
+    else
+        ptfe_install_args+=(
+            --no-proxy
         )
     fi
     # If we are airgapping, then set the arguments needed for Replicated.
@@ -227,5 +233,28 @@ if test -e "$airgap_installer_url_path"; then
     )
 fi
 
+duration=$SECONDS
+echo "[ptfe starting] $(($duration / 60)) minutes and $(($duration % 60)) seconds elapsed."
 echo "Running 'ptfe install $verb"  "${ptfe_install_args[@]}" "''"
 ptfe install $verb "${ptfe_install_args[@]}"
+
+duration=$SECONDS
+echo "[ptfe finished] $(($duration / 60)) minutes and $(($duration % 60)) seconds elapsed."
+
+# Poll for console to start
+while ! curl -ksfS --connect-timeout 5 https://$private_ip:8800/authenticate; do
+    sleep 5
+done
+
+if [ "x${role}x" == "xmainx" ]; then
+  echo "[ptfe wait] Sleeping for 5 minutes while TFE installs..."
+  sleep 300
+
+  # Poll for app to start - only for main primary node
+  while ! curl -ksfS --connect-timeout 5 https://$private_ip/_health_check; do
+      sleep 5
+  done
+fi
+
+duration=$SECONDS
+echo "[install finished] $(($duration / 60)) minutes and $(($duration % 60)) seconds elapsed."

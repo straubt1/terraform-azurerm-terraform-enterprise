@@ -17,8 +17,8 @@ resource "acme_certificate" "tls" {
 }
 
 resource "local_file" "pfx" {
-  filename = "./keys/acme.pfx"
-  content_base64   = acme_certificate.tls.certificate_p12
+  filename       = "./keys/acme.pfx"
+  content_base64 = acme_certificate.tls.certificate_p12
 }
 
 resource "local_file" "tls-issuer" {
@@ -28,7 +28,7 @@ resource "local_file" "tls-issuer" {
 
 resource "local_file" "tls-certificate" {
   filename = "./keys/certificate.cert"
-  content  = acme_certificate.tls.certificate_pem
+  content  = "${acme_certificate.tls.certificate_pem}\n${acme_certificate.tls.issuer_pem}"
 }
 
 resource "local_file" "tls-key" {
