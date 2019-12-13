@@ -1,5 +1,5 @@
 output "public_ips" {
-  value       = azurerm_public_ip.primary.*.ip_address
+  value       = [] #azurerm_public_ip.primary.*.ip_address
   description = "List of public ips for the nodes."
 }
 

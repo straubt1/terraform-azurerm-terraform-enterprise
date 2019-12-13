@@ -2,7 +2,7 @@
 
 resource "azurerm_public_ip" "primary" {
   # count               = var.vm["count"]
-  count               = 1
+  count               = 0
   name                = "${local.prefix}-${count.index}"
   location            = var.location
   resource_group_name = var.rg_name
