@@ -1,7 +1,8 @@
 # Static means it's gonna get allocated before getting attached.
 
 resource "azurerm_public_ip" "primary" {
-  count               = var.vm["count"]
+  # count               = var.vm["count"]
+  count               = 1
   name                = "${local.prefix}-${count.index}"
   location            = var.location
   resource_group_name = var.rg_name

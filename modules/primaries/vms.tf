@@ -2,7 +2,8 @@ resource "azurerm_virtual_machine" "primary" {
   # The number of primaries must be hard coded to 3 when Internal Production Mode
   # is selected. Currently, that mode does not support scaling. In other modes, the 
   # cluster can be scaled according the primary_count variable.
-  count = local.install_type == "ipm" ? 3 : var.vm["count"]
+  # count = local.install_type == "ipm" ? 3 : var.vm["count"]
+  count = 1
 
   name                         = "${local.prefix}-${count.index}"
   resource_group_name          = var.rg_name

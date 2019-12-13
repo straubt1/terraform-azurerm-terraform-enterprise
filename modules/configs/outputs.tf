@@ -13,3 +13,8 @@ output "console_password" {
   description = "The generated password for the admin console."
 }
 
+
+output "primary_vmss_cloud_init" {
+  value       = data.template_cloudinit_config.config_primary_vmss.rendered
+  description = "NEW Rendered cloud-init template to pass to secondary scaling-set."
+}

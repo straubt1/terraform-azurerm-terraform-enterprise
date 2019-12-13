@@ -40,6 +40,11 @@ variable "cloud_init_data_list" {
   description = "List of rendered cloud-init templates to pass to the vms."
 }
 
+variable "cloud_init_vmss" {
+  type        = string
+  description = "NEW single primary scaling of rendered cloud-init templates to pass to the vms."
+}
+
 variable "storage_image" {
   type        = map(string)
   description = "Expects keys: [publisher, offer, sku, version]"
