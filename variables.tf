@@ -261,4 +261,3 @@ variable "repl_cidr" {
   description = "Specify a non-standard CIDR range for the replicated services. The default is 10.96.0.0/12"
   default     = ""
 }
-

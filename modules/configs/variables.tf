@@ -130,3 +130,7 @@ resource "random_string" "bootstrap_token_suffix" {
   special = false
 }
 
+variable "hostname" {
+  type        = string
+  description = "The hostname of the TFE application. Example: tfe.company.com"
+}

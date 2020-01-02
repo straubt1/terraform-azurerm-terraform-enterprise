@@ -90,6 +90,7 @@ module "configs" {
   weave_cidr           = var.weave_cidr
   repl_cidr            = var.repl_cidr
   release_sequence     = var.release_sequence
+  hostname             = "${var.resource_prefix}-${random_string.install_id.result}.${var.domain}"
 
   iact = {
     subnet_list       = var.iact_subnet_list
