@@ -54,6 +54,12 @@ variable "resource_prefix" {
   default     = "tfe"
 }
 
+variable "install_id" {
+  type        = string
+  description = "(Optional) Unique id to add to the resource prefix. If none given, random will be used."
+  default     = ""
+}
+
 variable "airgap_installer_url" {
   type        = string
   description = "URL to replicated's airgap installer package"

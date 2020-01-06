@@ -9,7 +9,7 @@ output "application_health_check" {
 }
 
 output "install_id" {
-  value       = random_string.install_id.result
+  value       = local.install_id
   description = "The string prefix for resources."
 }
 

@@ -1,6 +1,6 @@
 module "common" {
   source          = "./modules/common"
-  install_id      = random_string.install_id.result
+  install_id      = local.install_id
   rg_name         = var.resource_group_name
   vnet_name       = var.virtual_network_name
   subnet_name     = var.subnet
@@ -26,7 +26,7 @@ module "common" {
 
 module "cluster_lb" {
   source          = "./modules/cluster_lb"
-  install_id      = random_string.install_id.result
+  install_id      = local.install_id
   rg_name         = module.common.rg_name
   location        = module.common.rg_location
   resource_prefix = var.resource_prefix
@@ -90,7 +90,7 @@ module "configs" {
   weave_cidr           = var.weave_cidr
   repl_cidr            = var.repl_cidr
   release_sequence     = var.release_sequence
-  hostname             = "${var.resource_prefix}-${random_string.install_id.result}.${var.domain}"
+  hostname             = "${var.resource_prefix}-${local.install_id}.${var.domain}"
 
   iact = {
     subnet_list       = var.iact_subnet_list
@@ -121,7 +121,7 @@ module "configs" {
 
 module "primaries" {
   source            = "./modules/primaries"
-  install_id        = random_string.install_id.result
+  install_id        = local.install_id
   rg_name           = module.common.rg_name
   location          = module.common.rg_location
   subnet_id         = module.common.app_subnet_id
@@ -154,7 +154,7 @@ module "primaries" {
 
 module "secondaries" {
   source          = "./modules/secondaries"
-  install_id      = random_string.install_id.result
+  install_id      = local.install_id
   rg_name         = module.common.rg_name
   location        = module.common.rg_location
   subnet_id       = module.common.app_subnet_id
